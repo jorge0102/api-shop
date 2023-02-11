@@ -3,7 +3,9 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "swagger": "php artisan l5-swagger:generate"
+        "swagger": "php artisan l5-swagger:generate",
+        "start": "php artisan serve",
+        "clear": "php artisan cache:clear && php artisan config:clear && php artisan config:cache"
     },
     "devDependencies": {
         "axios": "^1.1.2",

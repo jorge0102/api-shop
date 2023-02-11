@@ -11,15 +11,44 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    /**
-     * Create User
-     * @param Request $request
-     * @return User 
-     */
+  
+     /**
+    * @OA\Post(
+    *     path="/auth/register",
+    *     summary="Registrase",
+    *     @OA\RequestBody(
+    *         @OA\MediaType(
+    *             mediaType="application/json",
+    *             @OA\Schema(
+    *                 @OA\Property(
+    *                     property="name",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="email",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="password",
+    *                     type="string"
+    *                 ),
+    *                 example={"name": "name", "email": "prueba", "password": "prueba"}
+    *             )
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=200,
+    *         description="OK",
+    *         @OA\JsonContent(
+    *            
+    *             @OA\Examples(example="result", value={"status": true, "message": "User Logged In Successfully", "token": "Bearer 21fdas21fga2sd1f"}, summary="An result object.")
+    *         )
+    *     )
+    * )
+    */
     public function createUser(Request $request)
     {
         try {
-            //Validated
             $validateUser = Validator::make($request->all(), 
             [
                 'name' => 'required',
@@ -56,10 +85,35 @@ class AuthController extends Controller
     }
 
     /**
-     * Login The User
-     * @param Request $request
-     * @return User
-     */
+    * @OA\Post(
+    *     path="/auth/login",
+    *     summary="Login",
+    *     @OA\RequestBody(
+    *         @OA\MediaType(
+    *             mediaType="application/json",
+    *             @OA\Schema(
+    *                 @OA\Property(
+    *                     property="email",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="password",
+    *                     type="string"
+    *                 ),
+    *                 example={"email": "prueba", "password": "prueba"}
+    *             )
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=200,
+    *         description="OK",
+    *         @OA\JsonContent(
+    *            
+    *             @OA\Examples(example="result", value={"status": true, "message": "User Logged In Successfully", "token": "Bearer 21fdas21fga2sd1f"}, summary="An result object.")
+    *         )
+    *     )
+    * )
+    */
     public function loginUser(Request $request)
     {
         try {
