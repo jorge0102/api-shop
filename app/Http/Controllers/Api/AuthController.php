@@ -53,7 +53,17 @@ class AuthController extends Controller
             [
                 'name' => 'required',
                 'email' => 'required|email|unique:users,email',
-                'password' => 'required'
+                'lastName' => 'required',
+                'birthdate' => 'required',
+                'location' => 'required',
+                'address' => 'required',
+                'addressInfo' => 'required',
+                'mobilePhone' => 'required',
+                'comment' => 'required',
+                'cp' => 'required',
+                'terms' => 'required',
+                'newsletters' => 'required',
+                'password' => 'required',
             ]);
 
             if($validateUser->fails()){
@@ -65,9 +75,19 @@ class AuthController extends Controller
             }
 
             $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password)
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->password),
+                'lastName' => $request->input('lastName'),
+                'birthdate' => $request->input('birthdate'),
+                'location' => $request->input('location'),
+                'address' => $request->input('address'),
+                'addressInfo' => $request->input('addressInfo'),
+                'mobilePhone' => $request->input('mobilePhone'),
+                'comment' => $request->input('comment'),
+                'cp' => $request->input('cp'),
+                'terms' => $request->input('terms'),
+                'newsletters' => $request->input('newsletters')
             ]);
 
             return response()->json([
