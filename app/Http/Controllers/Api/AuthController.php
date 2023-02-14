@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\User;
+use App\Models\RoleUser;
 use App\Models\Role;
 
 class AuthController extends Controller
@@ -96,14 +97,19 @@ class AuthController extends Controller
             ]);
 
             if($user->save()) {
-                $role = Role::where('id', $request->role_id)->first();
-                $user->roles()->attach($role);
-
-                return response()->json([
-                    'status' => true,
-                    'message' => 'User Created Successfully',
-                    'token' => $user->createToken("API TOKEN")->plainTextToken
-                ], 200);
+                $role_id = Role::where('id', $request->role_id)->first();
+                $role = new RoleUser([
+                    'user_id' => $user->id,
+                    'role_id' => $role_id->id
+                ]);
+                if($role->save()) {
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'User Created Successfully',
+                        'token' => $user->createToken("API TOKEN")->plainTextToken
+                    ], 200);
+                }
+               
             }
         } catch (\Throwable $th) {
             return response()->json([
