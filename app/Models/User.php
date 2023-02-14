@@ -25,12 +25,13 @@ class User extends Authenticatable
         'birthdate',
         'location',
         'address',
-        'addressInfo',
-        'mobilePhone',
+        'address_info',
+        'mobile_phone',
         'comment',
         'cp',
-        'terms',
+        'privacy_policy',
         'newsletters',
+        'status',
     ];
     
     /**

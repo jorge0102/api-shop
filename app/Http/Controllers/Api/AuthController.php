@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
+use App\Models\User;
+use App\Models\Role;
 
 class AuthController extends Controller
 {
@@ -57,13 +59,15 @@ class AuthController extends Controller
                 'birthdate' => 'required',
                 'location' => 'required',
                 'address' => 'required',
-                'addressInfo' => 'required',
-                'mobilePhone' => 'required',
+                'address_info' => 'required',
+                'mobile_phone' => 'required',
                 'comment' => 'required',
                 'cp' => 'required',
-                'terms' => 'required',
+                'privacy_policy' => 'required',
                 'newsletters' => 'required',
                 'password' => 'required',
+                'status' => 'required',
+                'role_id' => 'required|exists:roles,id'
             ]);
 
             if($validateUser->fails()){
@@ -74,7 +78,7 @@ class AuthController extends Controller
                 ], 401);
             }
 
-            $user = User::create([
+            $user = new User([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
                 'password' => Hash::make($request->password),
@@ -82,20 +86,25 @@ class AuthController extends Controller
                 'birthdate' => $request->input('birthdate'),
                 'location' => $request->input('location'),
                 'address' => $request->input('address'),
-                'addressInfo' => $request->input('addressInfo'),
-                'mobilePhone' => $request->input('mobilePhone'),
+                'address_info' => $request->input('address_info'),
+                'mobile_phone' => $request->input('mobile_phone'),
                 'comment' => $request->input('comment'),
-                'cp' => $request->input('cp'),
-                'terms' => $request->input('terms'),
-                'newsletters' => $request->input('newsletters')
+                'privacy_policy' => $request->input('privacy_policy'),
+                'newsletters' => $request->input('newsletters'),
+                'status' => $request->input('status'),
+                'cp' => $request->input('cp')
             ]);
 
-            return response()->json([
-                'status' => true,
-                'message' => 'User Created Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
-            ], 200);
+            if($user->save()) {
+                $role = Role::where('id', $request->role_id)->first();
+                $user->roles()->attach($role);
 
+                return response()->json([
+                    'status' => true,
+                    'message' => 'User Created Successfully',
+                    'token' => $user->createToken("API TOKEN")->plainTextToken
+                ], 200);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,

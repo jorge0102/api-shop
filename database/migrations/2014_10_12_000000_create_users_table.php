@@ -20,17 +20,19 @@ return new class extends Migration
             $table->string('birthdate');
             $table->string('location');
             $table->string('address');
-            $table->string('addressInfo');
-            $table->string('mobilePhone');
+            $table->string('address_info');
+            $table->string('mobile_phone');
             $table->longText('comment');
             $table->string('cp');
-            $table->boolean('terms');
+            $table->boolean('status');
+            $table->boolean('privacy_policy');
             $table->boolean('newsletters');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

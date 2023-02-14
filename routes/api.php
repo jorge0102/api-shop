@@ -10,9 +10,12 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('login', [AuthController::class, 'loginUser']);
 });
 
-Route::group(['prefix' => 'user'], function () {
-    Route::get('', [UserController::class, 'getUser']);
-    Route::get('all', [UserController::class, 'getUsers']);
+Route::group(['middleware' => ['auth:sanctum', 'status']], function () { 
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('', [UserController::class, 'getUser']);
+        Route::get('all', [UserController::class, 'getUsers']);
+    });
 });
+
 
 
