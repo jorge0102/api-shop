@@ -10,3 +10,12 @@ A continuacion lanzamos este comando ("php artisan migrate") con esto se lanzara
 Para levantar el servidor ("npm run start")
 
 Y para ver todas las rutas que podemos utilizar estaran en la documentacion de swagger. http://127.0.0.1:8000/api/documentation
+
+Comandos para levantar el docker
+
+docker compose build app
+docker-compose up -d
+docker-compose exec app rm -rf vendor composer.lock
+docker-compose exec app composer install --prefer-dist --no-dev
+docker-compose exec app php artisan key:generate
+docker-compose exec app php artisan migrate
