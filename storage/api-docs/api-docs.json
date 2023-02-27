@@ -14,10 +14,14 @@
         }
     ],
     "paths": {
-        "/auth/register": {
+        "/api/auth/register": {
             "post": {
-                "summary": "Registrase",
-                "operationId": "e9f633efb784de73910b2d802f3e8ff8",
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Registrar usuario",
+                "description": "Registrar usuario",
+                "operationId": "a93d5d5a149e131b23859ee1d18d1628",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -29,13 +33,95 @@
                                     "email": {
                                         "type": "string"
                                     },
+                                    "lastName": {
+                                        "type": "string"
+                                    },
+                                    "birthdate": {
+                                        "type": "string"
+                                    },
+                                    "location": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "address_info": {
+                                        "type": "string"
+                                    },
+                                    "mobile_phone": {
+                                        "type": "string"
+                                    },
+                                    "comment": {
+                                        "type": "string"
+                                    },
+                                    "cp": {
+                                        "type": "string"
+                                    },
+                                    "privacy_policy": {
+                                        "type": "string"
+                                    },
+                                    "newsletters": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "role_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "examples": {
+                                    "result": {
+                                        "summary": "An result object.",
+                                        "value": {
+                                            "status": true,
+                                            "message": "User Logged In Successfully",
+                                            "token": "Bearer 21fdas21fga2sd1f"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Login",
+                "description": "Login",
+                "operationId": "ce8a703b01ee5813fac792caa2965d23",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
                                     "password": {
                                         "type": "string"
                                     }
                                 },
                                 "type": "object",
                                 "example": {
-                                    "name": "name",
                                     "email": "prueba",
                                     "password": "prueba"
                                 }
@@ -65,27 +151,100 @@
                 }
             }
         },
-        "/auth/login": {
+        "/api/user/all": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Obtener usuarios",
+                "description": "Obtener usuarios",
+                "operationId": "c512341c1d3e3e61ecad161ffb42ae03",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar todos los usuarios."
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            }
+        },
+        "/api/user/{user_id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Obtener usuario",
+                "description": "Obtener usuario",
+                "operationId": "7f71c42b0f0ee38872a2e118cab1752a",
+                "responses": {
+                    "200": {
+                        "description": "Mostrar usuario."
+                    },
+                    "default": {
+                        "description": "Ha ocurrido un error."
+                    }
+                }
+            },
             "post": {
-                "summary": "Login",
-                "operationId": "0ba9de54ccb9d0688a1e682e2b4d76cb",
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Actualizar usuario",
+                "description": "Actualizar usuario",
+                "operationId": "c96f87143702454de3842c7742acbe19",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
                                 "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
                                     "email": {
+                                        "type": "string"
+                                    },
+                                    "lastName": {
+                                        "type": "string"
+                                    },
+                                    "birthdate": {
+                                        "type": "string"
+                                    },
+                                    "location": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    },
+                                    "address_info": {
+                                        "type": "string"
+                                    },
+                                    "mobile_phone": {
+                                        "type": "string"
+                                    },
+                                    "comment": {
+                                        "type": "string"
+                                    },
+                                    "cp": {
+                                        "type": "string"
+                                    },
+                                    "privacy_policy": {
+                                        "type": "string"
+                                    },
+                                    "newsletters": {
                                         "type": "string"
                                     },
                                     "password": {
                                         "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "role_id": {
+                                        "type": "string"
                                     }
                                 },
-                                "type": "object",
-                                "example": {
-                                    "email": "prueba",
-                                    "password": "prueba"
-                                }
+                                "type": "object"
                             }
                         }
                     }
@@ -101,11 +260,39 @@
                                         "summary": "An result object.",
                                         "value": {
                                             "status": true,
-                                            "message": "User Logged In Successfully",
-                                            "token": "Bearer 21fdas21fga2sd1f"
+                                            "message": "User Update Successfully"
                                         }
                                     }
                                 }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Borrar usuario",
+                "description": "Borrar usuario",
+                "operationId": "12d7d9a141bde88b0c9ccb5c45cb1f57",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "user id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User Delete Successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
                             }
                         }
                     }

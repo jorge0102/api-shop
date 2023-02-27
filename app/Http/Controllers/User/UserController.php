@@ -8,6 +8,22 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    /**
+    * @OA\Get(
+    *     path="/api/user/all",
+    *     tags={"Users"},
+    *     summary="Obtener usuarios",
+    *     description="Obtener usuarios",
+    *     @OA\Response(
+    *         response=200,
+    *         description="Mostrar todos los usuarios."
+    *     ),
+    *     @OA\Response(
+    *         response="default",
+    *         description="Ha ocurrido un error."
+    *     )
+    * )
+    */
     public function getUsers() 
     {
         $users = User::get();
@@ -16,6 +32,22 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+    * @OA\Get(
+    *     path="/api/user/{user_id}",
+    *     tags={"Users"},
+    *     summary="Obtener usuario",
+    *     description="Obtener usuario",
+    *     @OA\Response(
+    *         response=200,
+    *         description="Mostrar usuario."
+    *     ),
+    *     @OA\Response(
+    *         response="default",
+    *         description="Ha ocurrido un error."
+    *     )
+    * )
+    */
     public function getUser(int $user_id) 
     {
         $user = User::where('id', $user_id)->get();
@@ -24,6 +56,90 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+    * @OA\Post(
+    *     path="/api/user/{user_id}",
+    *     tags={"Users"},
+    *     summary="Actualizar usuario",
+    *     description="Actualizar usuario",
+    *     @OA\RequestBody(
+    *         @OA\MediaType(
+    *             mediaType="application/json",
+    *             @OA\Schema(
+    *                 @OA\Property(
+    *                     property="name",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="email",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="lastName",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="birthdate",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="location",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="address",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="address_info",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="mobile_phone",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="comment",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="cp",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="privacy_policy",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="newsletters",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="password",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="status",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="role_id",
+    *                     type="string"
+    *                 ),
+    *                 
+    *             )
+    *         )
+    *     ),
+    *     @OA\Response(
+    *         response=200,
+    *         description="OK",
+    *         @OA\JsonContent(
+    *            
+    *             @OA\Examples(example="result", value={"status": true, "message": "User Update Successfully"}, summary="An result object.")
+    *         )
+    *     )
+    * )
+    */
     public function update(Request $request, int $user_id) 
     {
         try {
@@ -67,6 +183,28 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * @OA\Delete(
+     *      path="/api/user/{user_id}",
+     *      tags={"Users"},
+     *      summary="Borrar usuario",
+     *      description="Borrar usuario",
+     *      @OA\Parameter(
+     *          name="user_id",
+     *          description="user id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="User Delete Successfully",
+     *          @OA\JsonContent()
+     *       )
+     * )
+     */
     public function delete(int $user_id) 
     {
         $user = User::where('id', $user_id)->delete();

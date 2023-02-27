@@ -15,10 +15,12 @@ use App\Models\Role;
 class AuthController extends Controller
 {
   
-     /**
+    /**
     * @OA\Post(
-    *     path="/auth/register",
-    *     summary="Registrase",
+    *     path="/api/auth/register",
+    *     tags={"Login"},
+    *     summary="Registrar usuario",
+    *     description="Registrar usuario",
     *     @OA\RequestBody(
     *         @OA\MediaType(
     *             mediaType="application/json",
@@ -32,10 +34,58 @@ class AuthController extends Controller
     *                     type="string"
     *                 ),
     *                 @OA\Property(
+    *                     property="lastName",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="birthdate",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="location",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="address",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="address_info",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="mobile_phone",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="comment",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="cp",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="privacy_policy",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="newsletters",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
     *                     property="password",
     *                     type="string"
     *                 ),
-    *                 example={"name": "name", "email": "prueba", "password": "prueba"}
+    *                 @OA\Property(
+    *                     property="status",
+    *                     type="string"
+    *                 ),
+    *                 @OA\Property(
+    *                     property="role_id",
+    *                     type="string"
+    *                 ),
+    *                 
     *             )
     *         )
     *     ),
@@ -121,8 +171,10 @@ class AuthController extends Controller
 
     /**
     * @OA\Post(
-    *     path="/auth/login",
+    *     path="/api/auth/login",
+    *     tags={"Login"},
     *     summary="Login",
+    *     description="Login",
     *     @OA\RequestBody(
     *         @OA\MediaType(
     *             mediaType="application/json",
