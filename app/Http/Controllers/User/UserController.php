@@ -122,10 +122,6 @@ class UserController extends Controller
     *                     property="status",
     *                     type="string"
     *                 ),
-    *                 @OA\Property(
-    *                     property="role_id",
-    *                     type="string"
-    *                 ),
     *                 
     *             )
     *         )

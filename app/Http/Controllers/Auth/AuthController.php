@@ -80,11 +80,7 @@ class AuthController extends Controller
     *                 @OA\Property(
     *                     property="status",
     *                     type="string"
-    *                 ),
-    *                 @OA\Property(
-    *                     property="role_id",
-    *                     type="string"
-    *                 ),
+    *                 )
     *                 
     *             )
     *         )
@@ -118,7 +114,6 @@ class AuthController extends Controller
                 'newsletters' => 'required',
                 'password' => 'required',
                 'status' => 'required',
-                'role_id' => 'required|exists:roles,id'
             ]);
 
             if($validateUser->fails()){
@@ -147,7 +142,7 @@ class AuthController extends Controller
             ]);
 
             if($user->save()) {
-                $role_id = Role::where('id', $request->role_id)->first();
+                $role_id = Role::where('name', 'user')->first();
                 $role = new RoleUser([
                     'user_id' => $user->id,
                     'role_id' => $role_id->id
