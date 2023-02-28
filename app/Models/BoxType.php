@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BoxType extends Model
 {
+    protected $table = 'type';
+
     use HasFactory;
 }

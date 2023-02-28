@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExcludedFruits extends Model
 {
+    protected $table = 'fruits_excluded';
+     
     use HasFactory;
 }

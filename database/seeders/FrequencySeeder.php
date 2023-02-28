@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use App\Models\Frequency;
+
 class FrequencySeeder extends Seeder
 {
     /**
@@ -14,6 +16,12 @@ class FrequencySeeder extends Seeder
      */
     public function run()
     {
-        //
+        $frequency = new Frequency();
+        $frequency->frecuency = 'weekly';
+        $frequency->save();
+
+        $frequency = new Frequency();
+        $frequency->frecuency = 'monthly';
+        $frequency->save();
     }
 }

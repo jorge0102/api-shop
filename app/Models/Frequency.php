@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Frequency extends Model
 {
+    protected $table = 'delivery_frecuency';
+
     use HasFactory;
 }

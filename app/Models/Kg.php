@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kg extends Model
 {
+    protected $table = 'kg';
+
     use HasFactory;
 }

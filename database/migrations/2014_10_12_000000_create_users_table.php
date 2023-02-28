@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('address_info');
             $table->string('mobile_phone');
-            $table->longText('comment');
+            $table->longText('comment')->nullable();
             $table->string('cp');
             $table->boolean('status');
             $table->boolean('privacy_policy');
