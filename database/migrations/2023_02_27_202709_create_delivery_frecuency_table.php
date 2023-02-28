@@ -15,7 +15,10 @@ return new class extends Migration
     {
         Schema::create('delivery_frecuency', function (Blueprint $table) {
             $table->id();
+            $table->string('frecuency');
+            $table->string('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

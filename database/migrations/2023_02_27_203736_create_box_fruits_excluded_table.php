@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vegetables_excluded', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('box_fruits_excluded', function (Blueprint $table) {
+            $table->foreignId('box_id')->constrained('box');
+            $table->foreignId('fruits_excluded_id')->constrained('fruits_excluded');
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vegetables_excluded');
+        Schema::dropIfExists('box_fruits_excluded');
     }
 };

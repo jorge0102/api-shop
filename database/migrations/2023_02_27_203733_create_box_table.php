@@ -19,10 +19,9 @@ return new class extends Migration
             $table->foreignId('type_id')->constrained('type');
             $table->foreignId('delivery_frequency_id')->constrained('delivery_frecuency');
             $table->foreignId('kg_id')->constrained('kg');
-            $table->foreignId('fruits_excluded_id')->constrained('box_fruits_excluded');
-            $table->foreignId('vegetables_excluded_id')->constrained('box_vegetables_excluded');
             $table->boolean('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

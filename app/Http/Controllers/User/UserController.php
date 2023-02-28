@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         $users = User::get();
         return response()->json([
-            'users' => $users
+            'data' => $users
         ]);
     }
 
@@ -52,7 +52,7 @@ class UserController extends Controller
     {
         $user = User::where('id', $user_id)->get();
         return response()->json([
-            'user' => $user
+            'data' => $user
         ]);
     }
 
