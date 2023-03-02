@@ -15,8 +15,9 @@ Y para ver todas las rutas que podemos utilizar estaran en la documentacion de s
 Comandos para levantar el docker
 
 docker compose build app
-docker-compose up -d
-docker-compose exec app rm -rf vendor composer.lock
-docker-compose exec app composer install --prefer-dist --no-dev
-docker-compose exec app php artisan key:generate
-docker-compose exec app php artisan migrate
+docker compose up -d
+docker compose exec app rm -rf vendor composer.lock
+docker compose exec app composer install --prefer-dist --no-dev
+docker compose exec app php artisan key:generate
+docker compose exec app php artisan migrate
+docker compose exec app php artisan db:seed
