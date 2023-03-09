@@ -1,49 +1,64 @@
-version: "3.7"
 services:
   app:
     build:
-      args:
-        user: jat
-        uid: 1000
-      context: ./
+      context: .
       dockerfile: Dockerfile
-    image: api
-    container_name: api-app
+    image: howtoforge/app
+    container_name: app
     restart: unless-stopped
-    working_dir: /var/www/
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
     volumes:
       - ./:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      - api
+      - app-network
 
-  mysql:
-    image: mysql:8.0
-    container_name: api-db
+  webserver:
+    container_name: webserver
+    image: nginx:alpine
     restart: unless-stopped
+    tty: true
+    ports:
+        - 8000:80
+    volumes:
+        - ./:/var/www
+        - .docker-compose/nginx/conf.d:/etc/nginx/conf.d
+        - .docker-compose/nginx/logs:/var/log/nginx
+    logging:
+        options:
+            max-size: "10m"
+            max-file: "3"
+    networks:
+      - app-network
+
+  db:
+    image: mysql:latest
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "33061:3306"
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_USER: ${DB_USERNAME}
-    ports:
-      - 33060:3306
-    #volumes:
-      #- ./docker-compose/mysql:/docker-entrypoint-initdb.d/01init.sql
-    networks:
-      - api   
-
-  nginx:
-    image: nginx:alpine
-    container_name: api-nginx
-    restart: unless-stopped
-    ports:
-      - 8000:80
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
     volumes:
-      - ./:/var/www
-      - ./docker-compose/nginx:/etc/nginx/conf.d/
+      - dbdata:/var/lib/mysql
+      - .docker-compose/mysql/my.cnf:/etc/mysql/my.cnf
     networks:
-      - api
+      - app-network
+
+volumes:
+  dbdata:
+    driver: local
 
 networks:
-  api:
+  app-network:
     driver: bridge
