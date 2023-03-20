@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Frequency;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Frequency;
+
 class FrequencyController extends Controller
 {
     public function index()

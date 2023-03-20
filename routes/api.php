@@ -23,22 +23,25 @@ Route::group(['middleware' => ['auth:sanctum', 'status']], function () {
         Route::delete('{user_id}', [UserController::class, 'delete']);
     });
 
-    Route::group(['prefix' => 'box-type'], function () {
-        Route::get('', [TypeController::class, 'index']);
-    });
-
+   
     Route::group(['prefix' => 'excluded'], function () {
         Route::get('', [FruitsController::class, 'index']);
         Route::get('', [VegetablesController::class, 'index']);
     });
 
-    Route::group(['prefix' => 'frequency'], function () {
-        Route::get('', [FrequencyController::class, 'index']);
-    });
+   
+});
 
-    Route::group(['prefix' => 'kg'], function () {
-        Route::get('', [KgController::class, 'index']);
-    });
+Route::group(['prefix' => 'frequency'], function () {
+    Route::get('', [FrequencyController::class, 'index']);
+});
+
+Route::group(['prefix' => 'kg'], function () {
+    Route::get('', [KgController::class, 'index']);
+});
+
+Route::group(['prefix' => 'box-type'], function () {
+    Route::get('', [TypeController::class, 'index']);
 });
 
 

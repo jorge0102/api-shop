@@ -5,12 +5,14 @@ namespace App\Http\Controllers\BoxType;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\BoxType;
+
 class TypeController extends Controller
 {
  
     public function index()
     {
-        $type = Type::get();
+        $type = BoxType::get();
         return response()->json([
             'data' => $type
         ]);
